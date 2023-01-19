@@ -10,14 +10,14 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
+
   @override
   Widget build(BuildContext context) {
     Map<dynamic, dynamic> data =
         ModalRoute.of(context)!.settings.arguments as Map;
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(data["title"]),
+        title: Text(data["title"],style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w500),),
         centerTitle: true,
       ),
       body: Center(
@@ -51,16 +51,16 @@ class _DetailPageState extends State<DetailPage> {
                         ),
                         IconButton(onPressed: (){
                           setState(() {
-                            Map d = {
-                              "title" : data["title"],
-                              "thumbnail" : data["thumbnail"],
-                              "category" : data["category"],
-                            };
-
-                            Global.likeProducts = d as List;
-                            print(Global.likeProducts);
+                            Global.isLike = !Global.isLike;
+                            if(Global.isLike)
+                              { Global.likeProducts.add(data);
+                                Global.likeProducts.toSet();
+                              }
+                            else{
+                              Global.likeProducts.remove(data);
+                            }
                           });
-                        }, icon: const Icon(CupertinoIcons.heart))
+                        }, icon: Icon(CupertinoIcons.heart_fill,color:(Global.isLike)?Colors.red : Colors.grey,))
                       ],
                     ),
                     Text("₹ ${data["price"].toString()}",
@@ -84,7 +84,11 @@ class _DetailPageState extends State<DetailPage> {
             ),
             Padding(
               padding: const EdgeInsets.all(12),
-              child: OutlinedButton(onPressed: (){}, child: Text("Add to cart")),
+              child: OutlinedButton(onPressed: (){
+                setState(() {
+                  Global.myCart.add(data);
+                });
+              }, child: Text("Add to cart")),
             ),
           ],
         ),

@@ -52,12 +52,12 @@ class _HomeState extends State<Home> {
                          onTap: (){
                            Navigator.of(context).pushNamed("detail",arguments: e);
                          },
-                          child: Card(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: 120,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  height: 160,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(20),
@@ -67,22 +67,29 @@ class _HomeState extends State<Home> {
                                     ),
                                   ),
                                 ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                    child: Text(e["title"]),
+                              ),
+                              Card(
+                                color: Color(0xfff8f8f8),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(bottom: Radius.circular(20))
+                                ),
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                        child: Text(e["title"]),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                        child: Text(e["price"].toString()),
+                                      ),],
                                   ),
                                 ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                    child: Text(e["price"].toString()),
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       )

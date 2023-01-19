@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:viva_practical/global/globals.dart';
+import 'package:viva_practical/screens/cart_page.dart';
 import 'package:viva_practical/screens/home.dart';
 import 'package:viva_practical/screens/likes_page.dart';
 
@@ -73,6 +74,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       children: const [
         Home(),
         Likes(),
+        CartPage(),
       ],
     ),
     );
