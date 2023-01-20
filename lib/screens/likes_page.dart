@@ -10,6 +10,12 @@ class Likes extends StatefulWidget {
 
 class _LikesState extends State<Likes> {
   @override
+  void initState() {
+    Global.likeProducts = Global.likeProducts.toSet().toList();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

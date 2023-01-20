@@ -10,6 +10,26 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  addData() {
+    setState(() {
+      Map<String, dynamic> newData = {
+        "like": false,
+        "quantity": 1,
+      };
+      for (int i = 0; i < Global.allProducts.length; i++) {
+        Map data = Global.allProducts[i];
+        data.addAll(newData);
+        Global.products.add(data);
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    addData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,25 +53,31 @@ class _HomeState extends State<Home> {
                 child: Container(
                   height: 200,
                   decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(20),
                     image: const DecorationImage(
-                      image: NetworkImage("https://media.istockphoto.com/id/1206800961/photo/online-shopping-and-payment-man-using-tablet-with-shopping-cart-icon-digital-marketing.jpg?s=612x612&w=0&k=20&c=qG_9JB9ll4P5to97_HVxzMqhhzF0Gi1nWM_hNeiotbk="),
-                      fit: BoxFit.fill
-                    ),
+                        image: NetworkImage(
+                            "https://media.istockphoto.com/id/1206800961/photo/online-shopping-and-payment-man-using-tablet-with-shopping-cart-icon-digital-marketing.jpg?s=612x612&w=0&k=20&c=qG_9JB9ll4P5to97_HVxzMqhhzF0Gi1nWM_hNeiotbk="),
+                        fit: BoxFit.fill),
                   ),
                 ),
               ),
-              Text("All Products",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+              const Text(
+                "All Products",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
               Expanded(
                 child: GridView(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 10),
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10),
                   children: Global.products
                       .map(
                         (e) => GestureDetector(
-                         onTap: (){
-                           Navigator.of(context).pushNamed("detail",arguments: e);
-                         },
+                          onTap: () {
+                            Navigator.of(context)
+                                .pushNamed("detail", arguments: e);
+                          },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -62,30 +88,34 @@ class _HomeState extends State<Home> {
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(20),
                                     image: DecorationImage(
-                                      image: NetworkImage(e["thumbnail"]),
-                                        fit: BoxFit.cover
-                                    ),
+                                        image: NetworkImage(e["thumbnail"]),
+                                        fit: BoxFit.cover),
                                   ),
                                 ),
                               ),
                               Card(
-                                color: Color(0xfff8f8f8),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(bottom: Radius.circular(20))
-                                ),
+                                color: const Color(0xfff8f8f8),
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                        bottom: Radius.circular(20))),
                                 child: SizedBox(
                                   width: double.infinity,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0),
                                         child: Text(e["title"]),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                        child: Text(e["price"].toString()),
-                                      ),],
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0),
+                                        child:
+                                            Text("\$ ${e["price"].toString()}"),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),

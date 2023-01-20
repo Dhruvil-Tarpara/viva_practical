@@ -10,14 +10,16 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
-
   @override
   Widget build(BuildContext context) {
     Map<dynamic, dynamic> data =
         ModalRoute.of(context)!.settings.arguments as Map;
     return Scaffold(
       appBar: AppBar(
-        title: Text(data["title"],style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w500),),
+        title: Text(
+          data["title"],
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+        ),
         centerTitle: true,
       ),
       body: Center(
@@ -27,10 +29,11 @@ class _DetailPageState extends State<DetailPage> {
               flex: 2,
               child: Container(
                 decoration: BoxDecoration(
-                    color: Colors.blue,
-                    image: DecorationImage(
-                        image: NetworkImage(data["thumbnail"]),
-                        fit: BoxFit.cover)),
+                  color: Colors.blue,
+                  image: DecorationImage(
+                      image: NetworkImage(data["thumbnail"]),
+                      fit: BoxFit.cover),
+                ),
               ),
             ),
             Expanded(
@@ -49,28 +52,33 @@ class _DetailPageState extends State<DetailPage> {
                           style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w500),
                         ),
-                        IconButton(onPressed: (){
-                          setState(() {
-                            Global.isLike = !Global.isLike;
-                            if(Global.isLike)
-                              { Global.likeProducts.add(data);
-                                Global.likeProducts.toSet();
-                              }
-                            else{
-                              Global.likeProducts.remove(data);
-                            }
-                          });
-                        }, icon: Icon(CupertinoIcons.heart_fill,color:(Global.isLike)?Colors.red : Colors.grey,))
+                        IconButton(
+                            onPressed: () {
+                              setState(() {
+                                data["like"] = !data["like"];
+                                if (data["like"]) {
+                                  data["like"] = true;
+                                  Global.likeProducts.add(data);
+                                } else {
+                                  data["like"] = false;
+                                  Global.likeProducts.remove(data);
+                                }
+                              });
+                            },
+                            icon: Icon(
+                              CupertinoIcons.heart_fill,
+                              color: (data["like"]) ? Colors.red : Colors.grey,
+                            ))
                       ],
                     ),
-                    Text("₹ ${data["price"].toString()}",
+                    Text("\$ ${data["price"].toString()}",
                         style: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold)),
                     Text("Brand : ${data["brand"]}",
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w500)),
                     Text("Category : ${data["category"]}",
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w500)),
                     const Text("About",
                         style: TextStyle(
@@ -84,11 +92,13 @@ class _DetailPageState extends State<DetailPage> {
             ),
             Padding(
               padding: const EdgeInsets.all(12),
-              child: OutlinedButton(onPressed: (){
-                setState(() {
-                  Global.myCart.add(data);
-                });
-              }, child: Text("Add to cart")),
+              child: OutlinedButton(
+                  onPressed: () {
+                    setState(() {
+                      Global.myCart.add(data);
+                    });
+                  },
+                  child: const Text("Add to cart")),
             ),
           ],
         ),

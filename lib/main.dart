@@ -12,9 +12,9 @@ void main() {
       ),
       initialRoute: "Splash",
       routes: {
-        "/" : (context) => const HomePage(),
-        "Splash" : (context) => const SplashPage(),
-        "detail" : (context) => const DetailPage(),
+        "/": (context) => const HomePage(),
+        "Splash": (context) => const SplashPage(),
+        "detail": (context) => const DetailPage(),
       },
     ),
   );
